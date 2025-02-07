@@ -1,5 +1,6 @@
 package org.example.resilience4j.controller;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.example.resilience4j.component.Rest1Comp;
@@ -21,7 +22,8 @@ public class MainController {
     }
 
     //@CircuitBreaker(name = "MainControllerMethod1", fallbackMethod = "fallBackMethod")
-    @Retry(name = "MainControllerMethod1", fallbackMethod = "fallBackMethod")
+    //@Retry(name = "MainControllerMethod1", fallbackMethod = "fallBackMethod")
+    @Bulkhead(name = "MainControllerMethod1", type = Bulkhead.Type.SEMAPHORE, fallbackMethod = "fallBackMethod")
     @GetMapping("/")
     public String mainP() {
 
